@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t lukeschuyler/react-client -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run lukeschuyler/react-client npm test -- --coverage
+
+after_success:
+  - docker build -t lukeschuyler/multi-client ./client
+  - docker build -t lukeschuyler/multi-nginx ./nginx
+  - docker build -t lukeschuyler/multi-server ./server
+  - docker build -t lukeschuyler/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push lukeschuyler/multi-client
+  - docker push lukeschuyler/multi-nginx
+  - docker push lukeschuyler/multi-server
+  - docker push lukeschuyler/multi-worker

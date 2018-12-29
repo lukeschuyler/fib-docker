@@ -5,18 +5,21 @@
       "name": "client",
       "image": "lukeschuyler/multi-client",
       "hostname": "client",
+      "memory": 128,
       "essential": false
     },    
     {
       "name": "server",
       "image": "lukeschuyler/multi-server",
       "hostname": "api",
+      "memory": 128,
       "essential": false
     },    
     {
       "name": "worker",
       "image": "lukeschuyler/multi-worker",
       "hostname": "worker",
+      "memory": 128,
       "essential": false
     },    
     {
@@ -24,6 +27,7 @@
       "image": "lukeschuyler/multi-nginx",
       "hostname": "nginx",
       "essential": true,
+      "memory": 128,
       "portMappings": [
         {
           "hostPort": 80,
